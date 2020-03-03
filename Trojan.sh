@@ -162,16 +162,25 @@ EOF
         --reloadcmd  "systemctl force-reload  nginx.service"
 	if test -s /usr/src/trojan-cert/fullchain.cer; then
         cd /usr/src
-	wget https://github.com/rainmaidou/Trojan/raw/master/trojan-1.14.1-linux-amd64.tar.xz
-	tar xf trojan-1.*
-	#wget https://api.github.com/repos/trojan-gfw/trojan/releases/latest
-	#latest_version=`grep tag_name latest| awk -F '[:,"v]' '{print $6}'`
-	#wget https://github.com/trojan-gfw/trojan/releases/download/v${latest_version}/trojan-${latest_version}-linux-amd64.tar.xz
-	#tar xf trojan-${latest_version}-linux-amd64.tar.xz
+	#wget https://github.com/rainmaidou/Trojan/raw/master/trojan-1.14.1-linux-amd64.tar.xz
+	#tar xf trojan-1.*
+	#自动更新（开始）
+	wget https://api.github.com/repos/trojan-gfw/trojan/releases/latest
+	latest_version=`grep tag_name latest| awk -F '[:,"v]' '{print $6}'`
+	wget https://github.com/trojan-gfw/trojan/releases/download/v${latest_version}/trojan-${latest_version}-linux-amd64.tar.xz
+	tar xf trojan-${latest_version}-linux-amd64.tar.xz
+	#自动更新（结束）
 	#下载trojan客户端
 	wget https://github.com/rainmaidou/trojan/raw/master/trojan-cli.zip
 	unzip trojan-cli.zip
+	#自动更新（开始）
+	wget -P /usr/src/trojan-temp https://github.com/trojan-gfw/trojan/releases/download/v${latest_version}/trojan-${latest_version}-win.zip
+	unzip /usr/src/trojan-temp/trojan-${latest_version}-win.zip -d /usr/src/trojan-temp/
+	#自动更新（结束）
 	cp /usr/src/trojan-cert/fullchain.cer /usr/src/trojan-cli/fullchain.cer
+	#自动更新（开始）
+	mv -f /usr/src/trojan-temp/trojan/trojan.exe /usr/src/trojan-cli/
+	#自动更新（结束）
 	trojan_passwd=$(cat /dev/urandom | head -1 | md5sum | head -c 8)
 	cat > /usr/src/trojan-cli/config.json <<-EOF
 {
