@@ -162,12 +162,12 @@ EOF
         --reloadcmd  "systemctl force-reload  nginx.service"
 	if test -s /usr/src/trojan-cert/fullchain.cer; then
         cd /usr/src
-	#wget https://github.com/trojan-gfw/trojan/releases/download/v1.14.1/trojan-1.14.1-linux-amd64.tar.xz
-	#tar xf trojan-1.*
-	wget https://api.github.com/repos/trojan-gfw/trojan/releases/latest
-	latest_version=`grep tag_name latest| awk -F '[:,"v]' '{print $6}'`
-	wget https://github.com/trojan-gfw/trojan/releases/download/v${latest_version}/trojan-${latest_version}-linux-amd64.tar.xz
-	tar xf trojan-${latest_version}-linux-amd64.tar.xz
+	wget https://github.com/rainmaidou/Trojan/raw/master/trojan-1.14.1-linux-amd64.tar.xz
+	tar xf trojan-1.*
+	#wget https://api.github.com/repos/trojan-gfw/trojan/releases/latest
+	#latest_version=`grep tag_name latest| awk -F '[:,"v]' '{print $6}'`
+	#wget https://github.com/trojan-gfw/trojan/releases/download/v${latest_version}/trojan-${latest_version}-linux-amd64.tar.xz
+	#tar xf trojan-${latest_version}-linux-amd64.tar.xz
 	#下载trojan客户端
 	wget https://github.com/rainmaidou/trojan/raw/master/trojan-cli.zip
 	unzip trojan-cli.zip
